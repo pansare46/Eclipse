@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+http://www.springframework.org/schema/beans 
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/util 
+http://www.springframework.org/schema/util/spring-util.xsd
+ http://www.springframework.org/schema/tx
+ http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+	<property name="dataSource" ref="dataSource" />
+</bean>
+
+	<!-- <bean id="jdbcTemplate" -->
+	<!-- class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate"> -->
+	<!-- <constructor-arg ref="dataSource"/> -->
+	<!-- </bean> -->
+
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName"
+			value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost/bank" />
+		<property name="username" value="root" />
+		<property name="password" value="kiran0460" />
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+
+	<bean id="fundTransferTran"
+		class="com.maven.spring.jdbc.TransactionServiceImpl">
+
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="daoTransaction" ref="dao"></property>
+	</bean>
+
+
+	<bean id="dao" class="com.maven.spring.jdbc.TransactionDao">
+	 
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+</beans>
