@@ -4,6 +4,10 @@ import org.apache.log4j.Logger;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+
+/** 
+ * Main method
+ * */
 public class Startup {
 
 		private int senderAccountNumber = 123456;
